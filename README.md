@@ -17,6 +17,7 @@ Landing y carrito profesional para vender claves digitales con entrega inmediata
 - Catálogo dinámico cargado desde `juegos.json` con indicadores de stock y precio promedio.
 - Buscador en vivo y ordenamiento por precio o stock.
 - Carrito lateral con control de cantidades, persistencia en `localStorage` y validación de stock.
+- Registro e inicio de sesión locales con saludo personalizado utilizando tu nombre.
 - UI moderna con CTA, beneficios y secciones de confianza para reforzar conversión.
 - Notificaciones rápidas con SweetAlert2.
 

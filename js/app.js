@@ -13,6 +13,8 @@ function normalizarCarrito(datos) {
 const state = {
   productos: [],
   carrito: normalizarCarrito(JSON.parse(localStorage.getItem('carrito')) || []),
+  usuario: JSON.parse(localStorage.getItem('usuario')) || null,
+  sesionActiva: localStorage.getItem('sesionActiva') === 'true',
 };
 
 const refs = {
@@ -34,6 +36,9 @@ const refs = {
   limpiarFiltros: document.getElementById('limpiarFiltros'),
   stockDisponible: document.getElementById('stockDisponible'),
   valorPromedio: document.getElementById('valorPromedio'),
+  mensajeBienvenida: document.getElementById('mensajeBienvenida'),
+  btnLogin: document.getElementById('btnLogin'),
+  btnRegistro: document.getElementById('btnRegistro'),
 };
 
 const formatter = new Intl.NumberFormat('es-AR', {
@@ -58,6 +63,24 @@ function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(state.carrito));
 }
 
+function actualizarSaludo() {
+  if (!refs.mensajeBienvenida) return;
+
+  if (state.sesionActiva && state.usuario?.nombre) {
+    refs.mensajeBienvenida.textContent = `Bienvenido, ${state.usuario.nombre}. ¡Listo para jugar!`;
+    refs.mensajeBienvenida.hidden = false;
+    refs.btnLogin.textContent = 'Cerrar sesión';
+  } else {
+    refs.mensajeBienvenida.hidden = true;
+    refs.btnLogin.textContent = 'Iniciar sesión';
+  }
+}
+
+function guardarSesion() {
+  localStorage.setItem('usuario', JSON.stringify(state.usuario));
+  localStorage.setItem('sesionActiva', state.sesionActiva);
+}
+
 function actualizarIndicadores() {
   const stockTotal = state.productos.reduce((acc, p) => acc + p.cantidad, 0);
   const valorPromedio = state.productos.length
@@ -66,6 +89,99 @@ function actualizarIndicadores() {
 
   refs.stockDisponible.textContent = `${stockTotal} claves`;
   refs.valorPromedio.textContent = formatter.format(valorPromedio);
+}
+
+function registrarUsuario() {
+  Swal.fire({
+    title: 'Crear cuenta',
+    html: `
+      <div class="form-grid">
+        <input id="regNombre" class="swal2-input" placeholder="Nombre" autocomplete="name">
+        <input id="regEmail" class="swal2-input" placeholder="Correo" type="email" autocomplete="email">
+        <input id="regClave" class="swal2-input" placeholder="Contraseña" type="password" autocomplete="new-password">
+      </div>
+    `,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: 'Registrarme',
+    cancelButtonText: 'Cancelar',
+    preConfirm: () => {
+      const nombre = document.getElementById('regNombre').value.trim();
+      const correo = document.getElementById('regEmail').value.trim();
+      const clave = document.getElementById('regClave').value.trim();
+
+      if (!nombre || !correo || !clave) {
+        Swal.showValidationMessage('Completa todos los campos');
+        return false;
+      }
+
+      return { nombre, correo, clave };
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      state.usuario = result.value;
+      state.sesionActiva = true;
+      guardarSesion();
+      actualizarSaludo();
+      toast('Registro completado');
+    }
+  });
+}
+
+function iniciarSesion() {
+  if (!state.usuario) {
+    Swal.fire('Sin registro', 'Primero crea tu cuenta para iniciar sesión.', 'info');
+    return;
+  }
+
+  if (!state.usuario.clave) {
+    Swal.fire('Actualiza tu cuenta', 'Vuelve a registrarte para habilitar inicio de sesión.', 'info');
+    return;
+  }
+
+  Swal.fire({
+    title: 'Iniciar sesión',
+    html: `
+      <div class="form-grid">
+        <input id="loginNombre" class="swal2-input" placeholder="Nombre" value="${state.usuario.nombre}" autocomplete="name">
+        <input id="loginClave" class="swal2-input" placeholder="Contraseña" type="password" autocomplete="current-password">
+      </div>
+    `,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: 'Ingresar',
+    cancelButtonText: 'Cancelar',
+    preConfirm: () => {
+      const nombre = document.getElementById('loginNombre').value.trim();
+      const clave = document.getElementById('loginClave').value.trim();
+      if (!nombre || !clave) {
+        Swal.showValidationMessage('Completa ambos campos');
+        return false;
+      }
+      return { nombre, clave };
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (
+        result.value.nombre.toLowerCase() === state.usuario.nombre.toLowerCase() &&
+        result.value.clave === state.usuario.clave
+      ) {
+        state.sesionActiva = true;
+        guardarSesion();
+        actualizarSaludo();
+        toast('Sesión iniciada');
+      } else {
+        Swal.fire('Datos incorrectos', 'Revisa tu nombre y contraseña.', 'error');
+      }
+    }
+  });
+}
+
+function cerrarSesion() {
+  state.sesionActiva = false;
+  guardarSesion();
+  actualizarSaludo();
+  toast('Sesión cerrada', 'info');
 }
 
 function renderizarProductos() {
@@ -290,6 +406,15 @@ function inicializarEventos() {
   refs.btnVerCatalogo.addEventListener('click', scrollToCatalogo);
   refs.ctaCatalogo.addEventListener('click', scrollToCatalogo);
   refs.ctaDestacados.addEventListener('click', scrollToCatalogo);
+
+  refs.btnRegistro.addEventListener('click', registrarUsuario);
+  refs.btnLogin.addEventListener('click', () => {
+    if (state.sesionActiva) {
+      cerrarSesion();
+    } else {
+      iniciarSesion();
+    }
+  });
 }
 
 async function cargarProductos() {
@@ -308,5 +433,6 @@ async function cargarProductos() {
 (function init() {
   inicializarEventos();
   renderizarCarrito();
+  actualizarSaludo();
   cargarProductos();
 })();
