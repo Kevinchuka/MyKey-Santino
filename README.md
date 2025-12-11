@@ -20,7 +20,8 @@ Landing y carrito profesional para vender claves digitales con entrega inmediata
 - Registro e inicio de sesión locales con saludo personalizado utilizando tu nombre.
 - Alterna modo claro/oscuro con animación y preferencia persistente.
 - Selector de idioma EN/ES con preferencia persistente y textos comerciales traducidos automáticamente.
-- UI moderna con CTA, beneficios y secciones de confianza para reforzar conversión.
+- UI moderna con CTA, beneficios, vitrinas visuales y secciones de confianza para reforzar conversión.
+- Recursos automáticos y libres (Unsplash/Picsum para lifestyle, Logoipsum para marcas, Pravatar para equipo) listos para usarse sin descargas manuales.
 - Notificaciones rápidas con SweetAlert2.
 
 ## Estructura

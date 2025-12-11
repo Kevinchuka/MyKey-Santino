@@ -58,16 +58,33 @@
                     </div>
                 </div>
                 <div class="hero__visual">
-                    <div class="stat-card">
-                        <p class="stat-card__label" data-i18n="hero.stock">Stock disponible</p>
-                        <p class="stat-card__value" id="stockDisponible">--</p>
-                        <p class="stat-card__helper" data-i18n="hero.stockHelper">Actualizado en tiempo real</p>
+                    <div class="hero__image">
+                        <img src="https://source.unsplash.com/featured/800x600?gaming,setup" alt="Set up gamer moderno" loading="lazy">
+                        <div class="hero__badge" data-i18n="hero.badge">Curado por gamers</div>
                     </div>
-                    <div class="stat-card">
-                        <p class="stat-card__label" data-i18n="hero.valor">Valor promedio</p>
-                        <p class="stat-card__value" id="valorPromedio">--</p>
-                        <p class="stat-card__helper" data-i18n="hero.valorHelper">Basado en catálogo actual</p>
+                    <div class="hero__stats">
+                        <div class="stat-card">
+                            <p class="stat-card__label" data-i18n="hero.stock">Stock disponible</p>
+                            <p class="stat-card__value" id="stockDisponible">--</p>
+                            <p class="stat-card__helper" data-i18n="hero.stockHelper">Actualizado en tiempo real</p>
+                        </div>
+                        <div class="stat-card">
+                            <p class="stat-card__label" data-i18n="hero.valor">Valor promedio</p>
+                            <p class="stat-card__value" id="valorPromedio">--</p>
+                            <p class="stat-card__helper" data-i18n="hero.valorHelper">Basado en catálogo actual</p>
+                        </div>
                     </div>
+                </div>
+            </section>
+
+            <section class="partners" aria-label="Logos de marcas aliadas">
+                <p class="eyebrow" data-i18n="partners.eyebrow">Confían en nosotros</p>
+                <div class="partner-logos">
+                    <img src="https://logoipsum.com/static/img/logo-3.svg" alt="Logoipsum" loading="lazy">
+                    <img src="https://logoipsum.com/static/img/logo-4.svg" alt="Logoipsum" loading="lazy">
+                    <img src="https://logoipsum.com/static/img/logo-7.svg" alt="Logoipsum" loading="lazy">
+                    <img src="https://logoipsum.com/static/img/logo-8.svg" alt="Logoipsum" loading="lazy">
+                    <img src="https://logoipsum.com/static/img/logo-17.svg" alt="Logoipsum" loading="lazy">
                 </div>
             </section>
 
@@ -123,6 +140,40 @@
                 </div>
             </section>
 
+            <section class="showcase" id="destacados">
+                <div class="section-heading">
+                    <p class="eyebrow" data-i18n="showcase.eyebrow">Historias de entrega inmediata</p>
+                    <h2 data-i18n="showcase.titulo">Conquista cada sesión con claves listas para usar</h2>
+                    <p class="section-lead" data-i18n="showcase.descripcion">Capturamos setups reales, comunidad y atención de elite con recursos libres y verificados.</p>
+                </div>
+                <div class="showcase__grid">
+                    <article class="showcase__card">
+                        <img src="https://picsum.photos/seed/arena/640/420" alt="Jugadores disfrutando de juegos digitales" loading="lazy">
+                        <div class="showcase__body">
+                            <p class="pill" data-i18n="showcase.tagCatalogo">Catálogo curado</p>
+                            <h3 data-i18n="showcase.card1Titulo">Colección gamer siempre actualizada</h3>
+                            <p data-i18n="showcase.card1Texto">Curamos las últimas ediciones, DLC y bundles para que actives en minutos.</p>
+                        </div>
+                    </article>
+                    <article class="showcase__card">
+                        <img src="https://source.unsplash.com/featured/640x420?gaming,laptop" alt="Atención al cliente para jugadores" loading="lazy">
+                        <div class="showcase__body">
+                            <p class="pill" data-i18n="showcase.tagSoporte">Soporte 24/7</p>
+                            <h3 data-i18n="showcase.card2Titulo">Agentes que hablan tu idioma</h3>
+                            <p data-i18n="showcase.card2Texto">Acompañamiento humano por chat, correo y WhatsApp sin bots invasivos.</p>
+                        </div>
+                    </article>
+                    <article class="showcase__card">
+                        <img src="https://picsum.photos/seed/esports/640/420" alt="Proceso de pago seguro" loading="lazy">
+                        <div class="showcase__body">
+                            <p class="pill" data-i18n="showcase.tagPagos">Pagos protegidos</p>
+                            <h3 data-i18n="showcase.card3Titulo">Pasarelas auditadas y rápidas</h3>
+                            <p data-i18n="showcase.card3Texto">Procesamos cobros con autenticación en dos pasos y detección antifraude.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
             <section class="trust" id="contacto">
                 <div class="trust__content">
                     <p class="eyebrow" data-i18n="confianza.eyebrow">Confianza total</p>
@@ -154,6 +205,41 @@
                         <div class="panel__row">
                             <span data-i18n="confianza.envio">Envío</span>
                             <strong data-i18n="confianza.envioDetalle">Inmediato</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="support" aria-labelledby="equipo">
+                <div class="section-heading">
+                    <p class="eyebrow" id="equipo" data-i18n="equipo.eyebrow">Equipo gamer</p>
+                    <h2 data-i18n="equipo.titulo">Te acompañamos hasta activar tu juego</h2>
+                    <p class="section-lead" data-i18n="equipo.descripcion">Nuestro squad responde en minutos con agentes reales. Usa los canales que prefieras.</p>
+                </div>
+                <div class="support__content">
+                    <div class="support__people">
+                        <article class="person">
+                            <img src="https://i.pravatar.cc/140?img=12" alt="Agente de soporte" loading="lazy">
+                            <h3>Alex</h3>
+                            <p data-i18n="equipo.rol1">Especialista en activación</p>
+                        </article>
+                        <article class="person">
+                            <img src="https://i.pravatar.cc/140?img=32" alt="Agente de soporte" loading="lazy">
+                            <h3>Sam</h3>
+                            <p data-i18n="equipo.rol2">Pagos y facturación</p>
+                        </article>
+                        <article class="person">
+                            <img src="https://i.pravatar.cc/140?img=56" alt="Agente de soporte" loading="lazy">
+                            <h3>Jordan</h3>
+                            <p data-i18n="equipo.rol3">Recomendaciones gamer</p>
+                        </article>
+                    </div>
+                    <div class="support__cta">
+                        <h3 data-i18n="equipo.ctaTitulo">¿Necesitas ayuda ya mismo?</h3>
+                        <p data-i18n="equipo.ctaTexto">Estamos online 24/7. Escríbenos y recibe guías paso a paso para activar tu clave.</p>
+                        <div class="hero__actions">
+                            <a class="btn btn--primary" href="mailto:soporte@mykey.ar" data-i18n="equipo.ctaCorreo">Escribir al correo</a>
+                            <a class="btn btn--ghost" href="https://wa.me/5491112345678" target="_blank" rel="noreferrer" data-i18n="equipo.ctaWhatsapp">Abrir WhatsApp</a>
                         </div>
                     </div>
                 </div>
