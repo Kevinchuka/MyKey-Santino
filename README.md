@@ -19,6 +19,7 @@ Landing y carrito profesional para vender claves digitales con entrega inmediata
 - Carrito lateral con control de cantidades, persistencia en `localStorage` y validación de stock.
 - Registro e inicio de sesión locales con saludo personalizado utilizando tu nombre.
 - Alterna modo claro/oscuro con animación y preferencia persistente.
+- Selector de idioma EN/ES con preferencia persistente y textos comerciales traducidos automáticamente.
 - UI moderna con CTA, beneficios y secciones de confianza para reforzar conversión.
 - Notificaciones rápidas con SweetAlert2.
 
@@ -32,6 +33,6 @@ Landing y carrito profesional para vender claves digitales con entrega inmediata
 1. Actualiza `juegos.json` con nuevas claves o stock.
 2. Sustituye imágenes en `img/` con las portadas correspondientes.
 3. Ajusta colores o tipografías en `css/estilos.css`.
-4. Modifica textos comerciales directamente en `index.html`.
+4. Ajusta textos comerciales o traducciones en el objeto `textos` dentro de `js/app.js` para mantener sincronizados los idiomas.
 
 ¡Listo! MyKey queda lista para presentarla como un ecommerce profesional completo.

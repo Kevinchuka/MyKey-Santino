@@ -16,6 +16,282 @@ const state = {
   usuario: JSON.parse(localStorage.getItem('usuario')) || null,
   sesionActiva: localStorage.getItem('sesionActiva') === 'true',
   tema: localStorage.getItem('tema') || 'dark',
+  idioma: localStorage.getItem('idioma') || 'en',
+};
+
+const textos = {
+  en: {
+    nav: {
+      inicio: 'Home',
+      catalogo: 'Catalog',
+      beneficios: 'Benefits',
+      contacto: 'Contact',
+    },
+    header: {
+      verCatalogo: 'View catalog',
+      carrito: 'My cart',
+      cambiarIdioma: 'Switch language',
+    },
+    auth: {
+      iniciar: 'Sign in',
+      registro: 'Sign up',
+      cerrar: 'Sign out',
+    },
+    hero: {
+      eyebrow: 'Instant delivery · 100% official keys',
+      titulo: 'Pick your next game with confidence',
+      descripcion:
+        'Curated catalog with iconic titles, transparent prices, and 24/7 support. Get your digital key in minutes and start playing.',
+      explorar: 'Browse catalog',
+      destacados: 'View featured',
+      pillGarantia: 'Activation guarantee',
+      pillPagos: 'Secure payments',
+      pillSoporte: 'Support in Spanish',
+      stock: 'Available stock',
+      stockHelper: 'Updated in real time',
+      valor: 'Average value',
+      valorHelper: 'Based on current catalog',
+      bienvenida: ({ nombre }) => `Welcome, ${nombre}. Ready to play!`,
+    },
+    beneficios: {
+      eyebrow: 'Why choose MyKey',
+      titulo: 'A buying experience built for gamers',
+      descripcion:
+        'Local payments, guided activation, and notifications at every step so you only worry about playing.',
+      entrega: 'Instant delivery',
+      entregaTexto: 'Receive your activation code in minutes with email confirmation.',
+      proteccion: 'Anti-fraud protection',
+      proteccionTexto: 'We validate each key and refund you if there are activation issues.',
+      soporte: 'Dedicated support',
+      soporteTexto: 'Spanish-speaking agents available 24/7 via chat and email.',
+    },
+    catalogo: {
+      eyebrow: 'Catalog',
+      titulo: 'Pick your next title',
+      buscar: 'Search',
+      placeholderBusqueda: 'E.g. Elden Ring, Resident Evil',
+      ordenar: 'Sort by',
+      destacados: 'Featured',
+      precioAsc: 'Price: low to high',
+      precioDesc: 'Price: high to low',
+      stock: 'Available stock',
+      sinResultados: 'We could not find results for your search.',
+      limpiar: 'Clear filters',
+    },
+    confianza: {
+      eyebrow: 'Total trust',
+      titulo: 'Your purchase is protected',
+      descripcion:
+        'We work with certified processors and audit every operation. If the key does not activate, we refund your money.',
+      item1: 'Official keys with guided activation',
+      item2: 'Invoice and proof of purchase',
+      item3: 'Real-time notifications',
+      item4: 'Support in under 5 minutes',
+      soporte: 'Talk to support',
+      whatsapp: 'Contact via WhatsApp',
+      panelTitulo: 'Safe purchase',
+      panelMeta: 'Payments protected with two-factor authentication.',
+      pasarela: 'Gateway',
+      garantia: 'Warranty',
+      garantiaDetalle: 'Up to 30 days',
+      envio: 'Delivery',
+      envioDetalle: 'Instant',
+    },
+    footer: {
+      meta: 'Digital keys for demanding gamers. Made in Argentina.',
+      legal: '© 2024 MyKey. All rights reserved.',
+    },
+    carrito: {
+      titulo: 'Cart',
+      resumen: 'Purchase summary',
+      cerrar: 'Close cart',
+      vacio: 'You have not added any games yet. Explore the catalog to begin.',
+      volver: 'Go to catalog',
+      total: 'Total',
+      finalizar: 'Checkout',
+      unit: 'each',
+      eliminar: 'Remove',
+    },
+    card: {
+      meta: 'Digital key · Instant delivery',
+      stock: 'Stock',
+      stockLow: 'Last units',
+      add: 'Add',
+    },
+    mensajes: {
+      cantidadInvalida: 'Enter a valid quantity',
+      stockInsuficiente: 'Not enough stock for that quantity',
+      añadido: 'Added to cart',
+      carritoVacio: 'Your cart is empty',
+      resumenCompra: 'Confirm your purchase',
+      pagar: 'Pay now',
+      cancelar: 'Cancel',
+      compraCompleta: 'Purchase completed! You will receive your key soon.',
+      sinRegistroTitulo: 'No account found',
+      sinRegistroTexto: 'Create your account first to sign in.',
+      actualizaTitulo: 'Update your account',
+      actualizaTexto: 'Please register again to enable sign-in.',
+      loginTitulo: 'Sign in',
+      nombre: 'Name',
+      correo: 'Email',
+      clave: 'Password',
+      registrarTitulo: 'Create account',
+      registrarConfirmar: 'Sign up',
+      registrarCancelar: 'Cancel',
+      registrarCompleta: 'Fill out all fields',
+      loginIngresar: 'Sign in',
+      loginCompleta: 'Complete both fields',
+      datosIncorrectosTitulo: 'Incorrect data',
+      datosIncorrectosTexto: 'Check your name and password.',
+      sesionIniciada: 'Signed in',
+      sesionCerrada: 'Signed out',
+      registroCompleto: 'Account created',
+      saludoAnon: 'Welcome! Ready to play?',
+      compraPregunta: 'Are you sure you want to complete your purchase?',
+      carritoVacioInfo: 'Your cart is empty',
+      catalogoError: 'Could not fetch the catalog',
+    },
+    theme: {
+      ariaLight: 'Switch to dark mode',
+      ariaDark: 'Switch to light mode',
+    },
+  },
+  es: {
+    nav: {
+      inicio: 'Inicio',
+      catalogo: 'Catálogo',
+      beneficios: 'Beneficios',
+      contacto: 'Contacto',
+    },
+    header: {
+      verCatalogo: 'Ver catálogo',
+      carrito: 'Mi carrito',
+      cambiarIdioma: 'Cambiar idioma',
+    },
+    auth: {
+      iniciar: 'Iniciar sesión',
+      registro: 'Registrarme',
+      cerrar: 'Cerrar sesión',
+    },
+    hero: {
+      eyebrow: 'Entrega inmediata · Claves 100% oficiales',
+      titulo: 'Elige tu próximo juego con confianza',
+      descripcion:
+        'Catálogo curado con títulos icónicos, precios transparentes y soporte 24/7. Recibe tu clave digital en minutos y comienza a jugar.',
+      explorar: 'Explorar catálogo',
+      destacados: 'Ver destacados',
+      pillGarantia: 'Garantía de activación',
+      pillPagos: 'Pagos seguros',
+      pillSoporte: 'Soporte en español',
+      stock: 'Stock disponible',
+      stockHelper: 'Actualizado en tiempo real',
+      valor: 'Valor promedio',
+      valorHelper: 'Basado en catálogo actual',
+      bienvenida: ({ nombre }) => `Bienvenido, ${nombre}. ¡Listo para jugar!`,
+    },
+    beneficios: {
+      eyebrow: 'Por qué elegir MyKey',
+      titulo: 'Experiencia de compra pensada para gamers',
+      descripcion:
+        'Pagos locales, activación guiada y notificaciones en cada paso. Nuestro equipo se encarga de que solo te preocupes por jugar.',
+      entrega: 'Entrega inmediata',
+      entregaTexto: 'Recibe tu código de activación en cuestión de minutos con confirmación por correo.',
+      proteccion: 'Protección antifraude',
+      proteccionTexto: 'Validamos cada clave y ofrecemos reembolso si hay problemas de activación.',
+      soporte: 'Soporte dedicado',
+      soporteTexto: 'Agentes en español disponibles 24/7 por chat y correo para acompañarte.',
+    },
+    catalogo: {
+      eyebrow: 'Catálogo',
+      titulo: 'Escoge tu próximo título',
+      buscar: 'Buscar',
+      placeholderBusqueda: 'Ej: Elden Ring, Resident Evil',
+      ordenar: 'Ordenar por',
+      destacados: 'Destacados',
+      precioAsc: 'Precio: menor a mayor',
+      precioDesc: 'Precio: mayor a menor',
+      stock: 'Stock disponible',
+      sinResultados: 'No encontramos resultados para tu búsqueda.',
+      limpiar: 'Limpiar filtros',
+    },
+    confianza: {
+      eyebrow: 'Confianza total',
+      titulo: 'Tu compra está protegida',
+      descripcion:
+        'Trabajamos con procesadores certificados y auditamos cada operación. Si la clave no se activa, te devolvemos el dinero.',
+      item1: 'Claves oficiales con activación guiada',
+      item2: 'Factura y comprobante de compra',
+      item3: 'Notificaciones en tiempo real',
+      item4: 'Atención en menos de 5 minutos',
+      soporte: 'Hablar con soporte',
+      whatsapp: 'Contactar por WhatsApp',
+      panelTitulo: 'Compra segura',
+      panelMeta: 'Pagos protegidos con autenticación en dos pasos.',
+      pasarela: 'Pasarela',
+      garantia: 'Garantía',
+      garantiaDetalle: 'Hasta 30 días',
+      envio: 'Envío',
+      envioDetalle: 'Inmediato',
+    },
+    footer: {
+      meta: 'Claves digitales para gamers exigentes. Hecho en Argentina.',
+      legal: '© 2024 MyKey. Todos los derechos reservados.',
+    },
+    carrito: {
+      titulo: 'Carrito',
+      resumen: 'Resumen de compra',
+      cerrar: 'Cerrar carrito',
+      vacio: 'Aún no agregaste juegos. Explora el catálogo para comenzar.',
+      volver: 'Ir al catálogo',
+      total: 'Total',
+      finalizar: 'Finalizar compra',
+      unit: 'c/u',
+      eliminar: 'Eliminar',
+    },
+    card: {
+      meta: 'Clave digital · Entrega inmediata',
+      stock: 'Stock',
+      stockLow: 'Últimas unidades',
+      add: 'Agregar',
+    },
+    mensajes: {
+      cantidadInvalida: 'Ingresa una cantidad válida',
+      stockInsuficiente: 'No hay stock suficiente para esta cantidad',
+      añadido: 'Añadido al carrito',
+      carritoVacio: 'Tu carrito está vacío',
+      resumenCompra: 'Confirma tu compra',
+      pagar: 'Pagar ahora',
+      cancelar: 'Cancelar',
+      compraCompleta: '¡Compra completada! Pronto recibirás tu clave.',
+      sinRegistroTitulo: 'Sin registro',
+      sinRegistroTexto: 'Primero crea tu cuenta para iniciar sesión.',
+      actualizaTitulo: 'Actualiza tu cuenta',
+      actualizaTexto: 'Vuelve a registrarte para habilitar inicio de sesión.',
+      loginTitulo: 'Iniciar sesión',
+      nombre: 'Nombre',
+      correo: 'Correo',
+      clave: 'Contraseña',
+      registrarTitulo: 'Crear cuenta',
+      registrarConfirmar: 'Registrarme',
+      registrarCancelar: 'Cancelar',
+      registrarCompleta: 'Completa todos los campos',
+      loginIngresar: 'Ingresar',
+      loginCompleta: 'Completa ambos campos',
+      datosIncorrectosTitulo: 'Datos incorrectos',
+      datosIncorrectosTexto: 'Revisa tu nombre y contraseña.',
+      sesionIniciada: 'Sesión iniciada',
+      sesionCerrada: 'Sesión cerrada',
+      registroCompleto: 'Registro completado',
+      saludoAnon: '¡Bienvenido! ¿Listo para jugar?',
+      compraPregunta: '¿Seguro que quieres completar tu compra?',
+      carritoVacioInfo: 'Tu carrito está vacío',
+      catalogoError: 'No se pudo obtener el catálogo',
+    },
+    theme: {
+      ariaLight: 'Cambiar a modo oscuro',
+      ariaDark: 'Cambiar a modo claro',
+    },
+  },
 };
 
 const refs = {
@@ -41,7 +317,59 @@ const refs = {
   btnLogin: document.getElementById('btnLogin'),
   btnRegistro: document.getElementById('btnRegistro'),
   btnTema: document.getElementById('btnTema'),
+  btnIdioma: document.getElementById('btnIdioma'),
 };
+
+function obtenerTraduccion(idioma, key) {
+  const partes = key.split('.');
+  let valor = textos[idioma];
+  for (const parte of partes) {
+    valor = valor?.[parte];
+  }
+  return valor;
+}
+
+function t(key, params = {}) {
+  const valor = obtenerTraduccion(state.idioma, key);
+  if (typeof valor === 'function') return valor(params);
+  if (typeof valor === 'string') {
+    return valor.replace(/\{(\w+)\}/g, (_, prop) => params[prop] ?? `{${prop}}`);
+  }
+  return key;
+}
+
+function traducirUI() {
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const valor = t(el.dataset.i18n);
+    if (valor) el.textContent = valor;
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    const valor = t(el.dataset.i18nPlaceholder);
+    if (valor) el.setAttribute('placeholder', valor);
+  });
+
+  document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
+    const valor = t(el.dataset.i18nAriaLabel);
+    if (valor) el.setAttribute('aria-label', valor);
+  });
+
+  if (refs.btnIdioma) {
+    refs.btnIdioma.textContent = state.idioma.toUpperCase();
+    refs.btnIdioma.setAttribute('aria-label', t('header.cambiarIdioma'));
+  }
+}
+
+function aplicarIdioma(idioma) {
+  state.idioma = idioma;
+  localStorage.setItem('idioma', idioma);
+  document.documentElement.setAttribute('lang', idioma === 'en' ? 'en' : 'es');
+  traducirUI();
+  actualizarSaludo();
+  renderizarProductos();
+  renderizarCarrito();
+  aplicarTema(state.tema);
+}
 
 const formatter = new Intl.NumberFormat('es-AR', {
   style: 'currency',
@@ -69,12 +397,12 @@ function actualizarSaludo() {
   if (!refs.mensajeBienvenida) return;
 
   if (state.sesionActiva && state.usuario?.nombre) {
-    refs.mensajeBienvenida.textContent = `Bienvenido, ${state.usuario.nombre}. ¡Listo para jugar!`;
+    refs.mensajeBienvenida.textContent = t('hero.bienvenida', { nombre: state.usuario.nombre });
     refs.mensajeBienvenida.hidden = false;
-    refs.btnLogin.textContent = 'Cerrar sesión';
+    refs.btnLogin.textContent = t('auth.cerrar');
   } else {
     refs.mensajeBienvenida.hidden = true;
-    refs.btnLogin.textContent = 'Iniciar sesión';
+    refs.btnLogin.textContent = t('auth.iniciar');
   }
 }
 
@@ -93,10 +421,7 @@ function aplicarTema(tema) {
     refs.btnTema.querySelector('.theme-toggle__icon').textContent = icono;
     refs.btnTema.classList.add('theme-toggle--animate');
     setTimeout(() => refs.btnTema.classList.remove('theme-toggle--animate'), 450);
-    refs.btnTema.setAttribute(
-      'aria-label',
-      tema === 'light' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro'
-    );
+    refs.btnTema.setAttribute('aria-label', tema === 'light' ? t('theme.ariaLight') : t('theme.ariaDark'));
   }
 }
 
@@ -106,31 +431,32 @@ function actualizarIndicadores() {
     ? state.productos.reduce((acc, p) => acc + p.precio, 0) / state.productos.length
     : 0;
 
-  refs.stockDisponible.textContent = `${stockTotal} claves`;
+  const unidad = state.idioma === 'en' ? 'keys' : 'claves';
+  refs.stockDisponible.textContent = `${stockTotal} ${unidad}`;
   refs.valorPromedio.textContent = formatter.format(valorPromedio);
 }
 
 function registrarUsuario() {
   Swal.fire({
-    title: 'Crear cuenta',
+    title: t('mensajes.registrarTitulo'),
     html: `
       <div class="form-grid">
-        <input id="regNombre" class="swal2-input" placeholder="Nombre" autocomplete="name">
-        <input id="regEmail" class="swal2-input" placeholder="Correo" type="email" autocomplete="email">
-        <input id="regClave" class="swal2-input" placeholder="Contraseña" type="password" autocomplete="new-password">
+        <input id="regNombre" class="swal2-input" placeholder="${t('mensajes.nombre')}" autocomplete="name">
+        <input id="regEmail" class="swal2-input" placeholder="${t('mensajes.correo')}" type="email" autocomplete="email">
+        <input id="regClave" class="swal2-input" placeholder="${t('mensajes.clave')}" type="password" autocomplete="new-password">
       </div>
     `,
     focusConfirm: false,
     showCancelButton: true,
-    confirmButtonText: 'Registrarme',
-    cancelButtonText: 'Cancelar',
+    confirmButtonText: t('mensajes.registrarConfirmar'),
+    cancelButtonText: t('mensajes.registrarCancelar'),
     preConfirm: () => {
       const nombre = document.getElementById('regNombre').value.trim();
       const correo = document.getElementById('regEmail').value.trim();
       const clave = document.getElementById('regClave').value.trim();
 
       if (!nombre || !correo || !clave) {
-        Swal.showValidationMessage('Completa todos los campos');
+        Swal.showValidationMessage(t('mensajes.registrarCompleta'));
         return false;
       }
 
@@ -142,39 +468,39 @@ function registrarUsuario() {
       state.sesionActiva = true;
       guardarSesion();
       actualizarSaludo();
-      toast('Registro completado');
+      toast(t('mensajes.registroCompleto'));
     }
   });
 }
 
 function iniciarSesion() {
   if (!state.usuario) {
-    Swal.fire('Sin registro', 'Primero crea tu cuenta para iniciar sesión.', 'info');
+    Swal.fire(t('mensajes.sinRegistroTitulo'), t('mensajes.sinRegistroTexto'), 'info');
     return;
   }
 
   if (!state.usuario.clave) {
-    Swal.fire('Actualiza tu cuenta', 'Vuelve a registrarte para habilitar inicio de sesión.', 'info');
+    Swal.fire(t('mensajes.actualizaTitulo'), t('mensajes.actualizaTexto'), 'info');
     return;
   }
 
   Swal.fire({
-    title: 'Iniciar sesión',
+    title: t('mensajes.loginTitulo'),
     html: `
       <div class="form-grid">
-        <input id="loginNombre" class="swal2-input" placeholder="Nombre" value="${state.usuario.nombre}" autocomplete="name">
-        <input id="loginClave" class="swal2-input" placeholder="Contraseña" type="password" autocomplete="current-password">
+        <input id="loginNombre" class="swal2-input" placeholder="${t('mensajes.nombre')}" value="${state.usuario.nombre}" autocomplete="name">
+        <input id="loginClave" class="swal2-input" placeholder="${t('mensajes.clave')}" type="password" autocomplete="current-password">
       </div>
     `,
     focusConfirm: false,
     showCancelButton: true,
-    confirmButtonText: 'Ingresar',
-    cancelButtonText: 'Cancelar',
+    confirmButtonText: t('mensajes.loginIngresar'),
+    cancelButtonText: t('mensajes.cancelar'),
     preConfirm: () => {
       const nombre = document.getElementById('loginNombre').value.trim();
       const clave = document.getElementById('loginClave').value.trim();
       if (!nombre || !clave) {
-        Swal.showValidationMessage('Completa ambos campos');
+        Swal.showValidationMessage(t('mensajes.loginCompleta'));
         return false;
       }
       return { nombre, clave };
@@ -188,9 +514,9 @@ function iniciarSesion() {
         state.sesionActiva = true;
         guardarSesion();
         actualizarSaludo();
-        toast('Sesión iniciada');
+        toast(t('mensajes.sesionIniciada'));
       } else {
-        Swal.fire('Datos incorrectos', 'Revisa tu nombre y contraseña.', 'error');
+        Swal.fire(t('mensajes.datosIncorrectosTitulo'), t('mensajes.datosIncorrectosTexto'), 'error');
       }
     }
   });
@@ -200,7 +526,7 @@ function cerrarSesion() {
   state.sesionActiva = false;
   guardarSesion();
   actualizarSaludo();
-  toast('Sesión cerrada', 'info');
+  toast(t('mensajes.sesionCerrada'), 'info');
 }
 
 function renderizarProductos() {
@@ -208,6 +534,12 @@ function renderizarProductos() {
   const orden = refs.ordenar.value;
 
   let productos = [...state.productos];
+
+  if (!productos.length) {
+    refs.listaProductos.innerHTML = '';
+    refs.estadoVacio.hidden = true;
+    return;
+  }
 
   if (termino) {
     productos = productos.filter((p) => p.nombre.toLowerCase().includes(termino));
@@ -240,6 +572,7 @@ function renderizarProductos() {
     const id = producto.nombre;
     const card = document.createElement('article');
     card.className = 'card';
+    const estadoStock = producto.cantidad <= 2 ? t('card.stockLow') : t('card.stock');
     card.innerHTML = `
       <div class="card__media">
         <img src="${producto.imagen}" alt="${producto.nombre}">
@@ -247,15 +580,15 @@ function renderizarProductos() {
       <div class="card__body">
         <div>
           <p class="card__title">${producto.nombre}</p>
-          <p class="card__meta">Clave digital · Entrega inmediata</p>
+          <p class="card__meta">${t('card.meta')}</p>
         </div>
         <div class="stock-chip ${producto.cantidad <= 2 ? 'stock-chip--low' : ''}">
-          ${producto.cantidad <= 2 ? 'Últimas unidades' : 'Stock'}: ${producto.cantidad}
+          ${estadoStock}: ${producto.cantidad}
         </div>
         <div class="price">${formatter.format(producto.precio)}</div>
         <div class="quantity">
           <input type="number" min="1" max="${producto.cantidad}" value="1" data-producto="${id}">
-          <button class="btn btn--primary" data-add="${id}">Agregar</button>
+          <button class="btn btn--primary" data-add="${id}">${t('card.add')}</button>
         </div>
       </div>
     `;
@@ -282,13 +615,13 @@ function renderizarCarrito() {
       <img src="${item.imagen}" alt="${item.nombre}">
       <div>
         <p class="cart__title">${item.nombre}</p>
-        <p class="cart__meta">${formatter.format(item.precio)} c/u</p>
+        <p class="cart__meta">${formatter.format(item.precio)} ${t('carrito.unit')}</p>
       </div>
       <div class="cart__actions" data-index="${idx}">
         <button data-action="decrease">-</button>
         <span>${item.cantidadSeleccionada}</span>
         <button data-action="increase">+</button>
-        <button data-action="remove" title="Eliminar">✕</button>
+        <button data-action="remove" title="${t('carrito.eliminar')}">✕</button>
       </div>
     `;
     refs.listaCarrito.appendChild(li);
@@ -311,7 +644,7 @@ function agregarAlCarrito(id, cantidad) {
   const totalSolicitado = cantidadExistente + cantidad;
 
   if (totalSolicitado > producto.cantidad) {
-    toast('No hay stock suficiente para esta cantidad', 'error');
+    toast(t('mensajes.stockInsuficiente'), 'error');
     return;
   }
 
@@ -322,7 +655,7 @@ function agregarAlCarrito(id, cantidad) {
     state.carrito.push({ ...producto, cantidadSeleccionada: cantidad });
   }
 
-  toast('Añadido al carrito');
+  toast(t('mensajes.añadido'));
   renderizarCarrito();
 }
 
@@ -346,7 +679,7 @@ function actualizarCantidad(index, accion) {
 
 function finalizarCompra() {
   if (!state.carrito.length) {
-    toast('Tu carrito está vacío', 'info');
+    toast(t('mensajes.carritoVacio'), 'info');
     return;
   }
 
@@ -355,15 +688,15 @@ function finalizarCompra() {
     .join('\n');
 
   Swal.fire({
-    title: 'Confirma tu compra',
+    title: t('mensajes.resumenCompra'),
     text: resumen,
     icon: 'question',
     showCancelButton: true,
-    confirmButtonText: 'Pagar ahora',
-    cancelButtonText: 'Cancelar',
+    confirmButtonText: t('mensajes.pagar'),
+    cancelButtonText: t('mensajes.cancelar'),
   }).then((result) => {
     if (result.isConfirmed) {
-      toast('¡Compra completada! Pronto recibirás tu clave.');
+      toast(t('mensajes.compraCompleta'));
       state.carrito = [];
       renderizarCarrito();
       refs.drawer.classList.remove('drawer--open');
@@ -391,7 +724,7 @@ function inicializarEventos() {
       const input = refs.listaProductos.querySelector(`input[data-producto="${id}"]`);
       const cantidad = Number(input?.value || 1);
       if (Number.isNaN(cantidad) || cantidad <= 0) {
-        toast('Ingresa una cantidad válida', 'error');
+        toast(t('mensajes.cantidadInvalida'), 'error');
         return;
       }
       agregarAlCarrito(id, cantidad);
@@ -439,15 +772,20 @@ function inicializarEventos() {
     const siguienteTema = state.tema === 'dark' ? 'light' : 'dark';
     aplicarTema(siguienteTema);
   });
+
+  refs.btnIdioma?.addEventListener('click', () => {
+    const siguienteIdioma = state.idioma === 'en' ? 'es' : 'en';
+    aplicarIdioma(siguienteIdioma);
+  });
 }
 
-async function cargarProductos() {
-  try {
-    const res = await fetch('juegos.json');
-    if (!res.ok) throw new Error('No se pudo obtener el catálogo');
-    const data = await res.json();
-    state.productos = data;
-    actualizarIndicadores();
+  async function cargarProductos() {
+    try {
+      const res = await fetch('juegos.json');
+      if (!res.ok) throw new Error(t('mensajes.catalogoError'));
+      const data = await res.json();
+      state.productos = data;
+      actualizarIndicadores();
     renderizarProductos();
   } catch (error) {
     Swal.fire('Error', error.message, 'error');
@@ -455,9 +793,7 @@ async function cargarProductos() {
 }
 
 (function init() {
-  aplicarTema(state.tema);
+  aplicarIdioma(state.idioma);
   inicializarEventos();
-  renderizarCarrito();
-  actualizarSaludo();
   cargarProductos();
 })();
