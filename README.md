@@ -18,6 +18,7 @@ Landing y carrito profesional para vender claves digitales con entrega inmediata
 - Buscador en vivo y ordenamiento por precio o stock.
 - Carrito lateral con control de cantidades, persistencia en `localStorage` y validación de stock.
 - Registro e inicio de sesión locales con saludo personalizado utilizando tu nombre.
+- Alterna modo claro/oscuro con animación y preferencia persistente.
 - UI moderna con CTA, beneficios y secciones de confianza para reforzar conversión.
 - Notificaciones rápidas con SweetAlert2.
 

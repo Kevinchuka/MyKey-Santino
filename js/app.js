@@ -15,6 +15,7 @@ const state = {
   carrito: normalizarCarrito(JSON.parse(localStorage.getItem('carrito')) || []),
   usuario: JSON.parse(localStorage.getItem('usuario')) || null,
   sesionActiva: localStorage.getItem('sesionActiva') === 'true',
+  tema: localStorage.getItem('tema') || 'dark',
 };
 
 const refs = {
@@ -39,6 +40,7 @@ const refs = {
   mensajeBienvenida: document.getElementById('mensajeBienvenida'),
   btnLogin: document.getElementById('btnLogin'),
   btnRegistro: document.getElementById('btnRegistro'),
+  btnTema: document.getElementById('btnTema'),
 };
 
 const formatter = new Intl.NumberFormat('es-AR', {
@@ -79,6 +81,23 @@ function actualizarSaludo() {
 function guardarSesion() {
   localStorage.setItem('usuario', JSON.stringify(state.usuario));
   localStorage.setItem('sesionActiva', state.sesionActiva);
+}
+
+function aplicarTema(tema) {
+  state.tema = tema;
+  document.documentElement.setAttribute('data-theme', tema);
+  localStorage.setItem('tema', tema);
+
+  if (refs.btnTema) {
+    const icono = tema === 'light' ? '☀️' : '🌙';
+    refs.btnTema.querySelector('.theme-toggle__icon').textContent = icono;
+    refs.btnTema.classList.add('theme-toggle--animate');
+    setTimeout(() => refs.btnTema.classList.remove('theme-toggle--animate'), 450);
+    refs.btnTema.setAttribute(
+      'aria-label',
+      tema === 'light' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro'
+    );
+  }
 }
 
 function actualizarIndicadores() {
@@ -415,6 +434,11 @@ function inicializarEventos() {
       iniciarSesion();
     }
   });
+
+  refs.btnTema.addEventListener('click', () => {
+    const siguienteTema = state.tema === 'dark' ? 'light' : 'dark';
+    aplicarTema(siguienteTema);
+  });
 }
 
 async function cargarProductos() {
@@ -431,6 +455,7 @@ async function cargarProductos() {
 }
 
 (function init() {
+  aplicarTema(state.tema);
   inicializarEventos();
   renderizarCarrito();
   actualizarSaludo();
