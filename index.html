@@ -1,59 +1,290 @@
 <!DOCTYPE html>
-<html lang="es-AR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyKey - Venta de Claves</title>
-    <link rel="stylesheet" href="/css/estilos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
+    <title>MyKey | Tu tienda gamer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
-    <header>
-        <h1>Bienvenido a MyKey Argentina!</h1>
-        <nav>
-            <ul>
-                <li><a href="#" id="inicioBtn">Inicio</a></li>
-                <li><a href="#" id="verCarrito">Carrito</a></li>
-                <li><a href="#" id="cerrarSesion">Cerrar Sesión</a></li>
-            </ul>
-        </nav>
-        
-    </header>
+    <div class="page">
+        <header class="topbar">
+            <div class="topbar__row">
+                <div class="brand">
+                    <img src="img/logo.svg" alt="MyKey" class="brand__logo" onerror="this.style.display='none'">
+                    <span class="brand__name">MyKey</span>
+                </div>
+                <button class="menu-toggle" id="btnMenu" aria-expanded="false" aria-label="Abrir menú">
+                    ☰
+                </button>
+            </div>
+            <div class="topbar__content" id="menuContenido">
+                <nav class="nav">
+                    <a href="#hero" data-i18n="nav.inicio">Inicio</a>
+                    <a href="#beneficios" data-i18n="nav.beneficios">Beneficios</a>
+                    <a href="#contacto" data-i18n="nav.contacto">Contacto</a>
+                </nav>
+                <div class="actions">
+                    <button class="btn btn--ghost" id="btnVerCatalogo" data-i18n="header.verCatalogo">Ver catálogo</button>
+                    <button class="btn btn--ghost" id="btnIdioma" aria-label="Change language">EN</button>
+                    <button class="theme-toggle" id="btnTema" aria-label="Cambiar modo de color">
+                        <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+                    </button>
+                    <div class="auth-actions">
+                        <button class="btn btn--ghost" id="btnLogin" data-i18n="auth.iniciar">Iniciar sesión</button>
+                        <button class="btn btn--primary" id="btnRegistro" data-i18n="auth.registro">Registrarme</button>
+                        <button class="btn btn--ghost" id="btnLogout" data-i18n="auth.cerrar" hidden>Cerrar sesión</button>
+                    </div>
+                    <button class="btn btn--primary" id="btnCarrito">
+                        <span data-i18n="header.carrito">Mi carrito</span>
+                        <span class="badge" id="carritoBadge">0</span>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-    <main>
-        <div id="usuarioSection">
-            <h2>Ingreso de Usuario</h2>
-            <input type="text" id="usuarioInput" placeholder="Ingrese su nombre">
-            <button id="ingresarUsuario">Ingresar</button>
-            <div id="mensajeError" style="color: red; margin-top: 10px;"></div>
-        </div>
-        
-        <div id="catalogoSection" style="display: none;">
-            <h2>Catálogo de claves</h2>
-            <p id="bienvenidaUsuario"></p> 
-            <div id="catalogoLista"></div>
-        </div>
-        
+        <main>
+            <section class="hero" id="hero">
+                <div class="hero__content">
+                    <p class="eyebrow" data-i18n="hero.eyebrow">Entrega inmediata · Claves 100% oficiales</p>
+                    <h1 data-i18n="hero.titulo">Elige tu próximo juego con confianza</h1>
+                    <p class="lead" data-i18n="hero.descripcion">Catálogo curado con títulos icónicos, precios transparentes y soporte 24/7. Recibe tu clave digital en minutos y comienza a jugar.</p>
+                    <p class="welcome" id="mensajeBienvenida" hidden></p>
+                    <div class="hero__actions">
+                        <button class="btn btn--primary" id="ctaCatalogo" data-i18n="hero.explorar">Explorar catálogo</button>
+                        <button class="btn btn--ghost" id="ctaDestacados" data-i18n="hero.destacados">Ver destacados</button>
+                    </div>
+                    <div class="hero__highlights">
+                        <div class="pill" data-i18n="hero.pillGarantia">Garantía de activación</div>
+                        <div class="pill" data-i18n="hero.pillPagos">Pagos seguros</div>
+                        <div class="pill" data-i18n="hero.pillSoporte">Soporte en español</div>
+                    </div>
+                </div>
+                <div class="hero__visual">
+                <div class="hero__image">
+                    <img src="https://loremflickr.com/800/600/gaming,setup" alt="Set up gamer moderno" loading="lazy">
+                    <div class="hero__badge" data-i18n="hero.badge">Curado por gamers</div>
+                </div>
+                    <div class="hero__stats">
+                        <div class="stat-card">
+                            <p class="stat-card__label" data-i18n="hero.stock">Stock disponible</p>
+                            <p class="stat-card__value" id="stockDisponible">--</p>
+                            <p class="stat-card__helper" data-i18n="hero.stockHelper">Actualizado en tiempo real</p>
+                        </div>
+                        <div class="stat-card">
+                            <p class="stat-card__label" data-i18n="hero.valor">Valor promedio</p>
+                            <p class="stat-card__value" id="valorPromedio">--</p>
+                            <p class="stat-card__helper" data-i18n="hero.valorHelper">Basado en catálogo actual</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div id="carritoSection" style="display: none;"> 
-            <h2>Tu Carrito</h2>
-            <ul id="carritoLista"></ul>
-            <div id="totalCarrito">Total: $0</div>
-            <button id="finalizarCompra" class="btn-finalizar-compra">Finalizar Compra</button>
-            <button id="volverCatalogo" class="btn-volver-catalogo">Volver al Catálogo</button>
-        </div>
-        
-    </main>
+            <section class="benefits" id="beneficios">
+                <div class="section-heading">
+                    <p class="eyebrow" data-i18n="beneficios.eyebrow">Por qué elegir MyKey</p>
+                    <h2 data-i18n="beneficios.titulo">Experiencia de compra pensada para gamers</h2>
+                    <p class="section-lead" data-i18n="beneficios.descripcion">Pagos locales, activación guiada y notificaciones en cada paso. Nuestro equipo se encarga de que solo te preocupes por jugar.</p>
+                </div>
+                <div class="benefits__grid">
+                    <article class="benefit-card">
+                        <div class="icon-circle">⚡</div>
+                        <h3 data-i18n="beneficios.entrega">Entrega inmediata</h3>
+                        <p data-i18n="beneficios.entregaTexto">Recibe tu código de activación en cuestión de minutos con confirmación por correo.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <div class="icon-circle">🛡️</div>
+                        <h3 data-i18n="beneficios.proteccion">Protección antifraude</h3>
+                        <p data-i18n="beneficios.proteccionTexto">Validamos cada clave y ofrecemos reembolso si hay problemas de activación.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <div class="icon-circle">🤝</div>
+                        <h3 data-i18n="beneficios.soporte">Soporte dedicado</h3>
+                        <p data-i18n="beneficios.soporteTexto">Agentes en español disponibles 24/7 por chat y correo para acompañarte.</p>
+                    </article>
+                </div>
+            </section>
 
-    <footer>
-        <p>MyKey | Venta de Claves para Juegos | 2024</p>
-    </footer>
+            <section class="catalog" id="catalogo">
+                <div class="section-heading">
+                    <p class="eyebrow" data-i18n="catalogo.eyebrow">Catálogo</p>
+                    <h2 data-i18n="catalogo.titulo">Escoge tu próximo título</h2>
+                </div>
+                <div class="catalog__controls">
+                    <div class="input-group">
+                        <label for="buscador" data-i18n="catalogo.buscar">Buscar</label>
+                        <input type="search" id="buscador" placeholder="Ej: Elden Ring, Resident Evil" data-i18n-placeholder="catalogo.placeholderBusqueda">
+                    </div>
+                    <div class="input-group">
+                        <label for="ordenar" data-i18n="catalogo.ordenar">Ordenar por</label>
+                        <select id="ordenar">
+                            <option value="featured" data-i18n="catalogo.destacados">Destacados</option>
+                            <option value="price-asc" data-i18n="catalogo.precioAsc">Precio: menor a mayor</option>
+                            <option value="price-desc" data-i18n="catalogo.precioDesc">Precio: mayor a menor</option>
+                            <option value="stock" data-i18n="catalogo.stock">Stock disponible</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="products" id="listaProductos"></div>
+                <div class="empty" id="estadoVacio" hidden>
+                    <p data-i18n="catalogo.sinResultados">No encontramos resultados para tu búsqueda.</p>
+                    <button class="btn btn--ghost" id="limpiarFiltros" data-i18n="catalogo.limpiar">Limpiar filtros</button>
+                </div>
+            </section>
 
-    <script src="/js/catalogo.js"></script> 
-    <script src="/js/index.js"></script>    
-    <script src="/js/carrito.js"></script>
-    
+            <section class="showcase" id="destacados">
+                <div class="section-heading">
+                    <p class="eyebrow" data-i18n="showcase.eyebrow">Historias de entrega inmediata</p>
+                    <h2 data-i18n="showcase.titulo">Conquista cada sesión con claves listas para usar</h2>
+                        <p class="section-lead" data-i18n="showcase.descripcion">Capturamos setups reales, comunidad y atención de elite con recursos libres y verificados.</p>
+                </div>
+                <div class="showcase__grid">
+                    <article class="showcase__card">
+                        <img src="https://loremflickr.com/640/420/product,gaming" alt="Jugadores disfrutando de juegos digitales" loading="lazy">
+                        <div class="showcase__body">
+                            <p class="pill" data-i18n="showcase.tagCatalogo">Catálogo curado</p>
+                            <h3 data-i18n="showcase.card1Titulo">Colección gamer siempre actualizada</h3>
+                            <p data-i18n="showcase.card1Texto">Curamos las últimas ediciones, DLC y bundles para que actives en minutos.</p>
+                        </div>
+                    </article>
+                    <article class="showcase__card">
+                        <img src="https://loremflickr.com/640/420/support,team" alt="Atención al cliente para jugadores" loading="lazy">
+                        <div class="showcase__body">
+                            <p class="pill" data-i18n="showcase.tagSoporte">Soporte 24/7</p>
+                            <h3 data-i18n="showcase.card2Titulo">Agentes que hablan tu idioma</h3>
+                            <p data-i18n="showcase.card2Texto">Acompañamiento humano por chat, correo y WhatsApp sin bots invasivos.</p>
+                        </div>
+                    </article>
+                    <article class="showcase__card">
+                        <img src="https://loremflickr.com/640/420/payment,technology" alt="Proceso de pago seguro" loading="lazy">
+                        <div class="showcase__body">
+                            <p class="pill" data-i18n="showcase.tagPagos">Pagos protegidos</p>
+                            <h3 data-i18n="showcase.card3Titulo">Pasarelas auditadas y rápidas</h3>
+                            <p data-i18n="showcase.card3Texto">Procesamos cobros con autenticación en dos pasos y detección antifraude.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="trust" id="contacto">
+                <div class="trust__content">
+                    <p class="eyebrow" data-i18n="confianza.eyebrow">Confianza total</p>
+                    <h2 data-i18n="confianza.titulo">Tu compra está protegida</h2>
+                    <p class="section-lead" data-i18n="confianza.descripcion">Trabajamos con procesadores certificados y auditamos cada operación. Si la clave no se activa, te devolvemos el dinero.</p>
+                    <ul class="checklist">
+                        <li data-i18n="confianza.item1">Claves oficiales con activación guiada</li>
+                        <li data-i18n="confianza.item2">Factura y comprobante de compra</li>
+                        <li data-i18n="confianza.item3">Notificaciones en tiempo real</li>
+                        <li data-i18n="confianza.item4">Atención en menos de 5 minutos</li>
+                    </ul>
+                    <div class="hero__actions">
+                        <a class="btn btn--primary" href="mailto:soporte@mykey.ar" data-i18n="confianza.soporte">Hablar con soporte</a>
+                        <a class="btn btn--ghost" href="https://wa.me/5491112345678" target="_blank" rel="noreferrer" data-i18n="confianza.whatsapp">Contactar por WhatsApp</a>
+                    </div>
+                </div>
+                <div class="trust__panel">
+                    <div class="panel">
+                        <h3 data-i18n="confianza.panelTitulo">Compra segura</h3>
+                        <p class="panel__meta" data-i18n="confianza.panelMeta">Pagos protegidos con autenticación en dos pasos.</p>
+                        <div class="panel__row">
+                            <span data-i18n="confianza.pasarela">Pasarela</span>
+                            <strong>Mercado Pago</strong>
+                        </div>
+                        <div class="panel__row">
+                            <span data-i18n="confianza.garantia">Garantía</span>
+                            <strong data-i18n="confianza.garantiaDetalle">Hasta 30 días</strong>
+                        </div>
+                        <div class="panel__row">
+                            <span data-i18n="confianza.envio">Envío</span>
+                            <strong data-i18n="confianza.envioDetalle">Inmediato</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="support" aria-labelledby="equipo">
+                <div class="section-heading">
+                    <p class="eyebrow" id="equipo" data-i18n="equipo.eyebrow">Equipo gamer</p>
+                    <h2 data-i18n="equipo.titulo">Te acompañamos hasta activar tu juego</h2>
+                    <p class="section-lead" data-i18n="equipo.descripcion">Nuestro squad responde en minutos con agentes reales. Usa los canales que prefieras.</p>
+                </div>
+                <div class="support__content">
+                    <div class="support__people">
+                        <article class="person">
+                            <img src="https://loremflickr.com/140/140/person,portrait?lock=12" alt="Agente de soporte" loading="lazy">
+                            <h3>Alex</h3>
+                            <p data-i18n="equipo.rol1">Especialista en activación</p>
+                        </article>
+                        <article class="person">
+                            <img src="https://loremflickr.com/140/140/person,tech?lock=32" alt="Agente de soporte" loading="lazy">
+                            <h3>Sam</h3>
+                            <p data-i18n="equipo.rol2">Pagos y facturación</p>
+                        </article>
+                        <article class="person">
+                            <img src="https://loremflickr.com/140/140/person,gaming?lock=56" alt="Agente de soporte" loading="lazy">
+                            <h3>Jordan</h3>
+                            <p data-i18n="equipo.rol3">Recomendaciones gamer</p>
+                        </article>
+                    </div>
+                    <div class="support__cta">
+                        <h3 data-i18n="equipo.ctaTitulo">¿Necesitas ayuda ya mismo?</h3>
+                        <p data-i18n="equipo.ctaTexto">Estamos online 24/7. Escríbenos y recibe guías paso a paso para activar tu clave.</p>
+                        <div class="hero__actions">
+                            <a class="btn btn--primary" href="mailto:soporte@mykey.ar" data-i18n="equipo.ctaCorreo">Escribir al correo</a>
+                            <a class="btn btn--ghost" href="https://wa.me/5491112345678" target="_blank" rel="noreferrer" data-i18n="equipo.ctaWhatsapp">Abrir WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div>
+                <p class="brand__name">MyKey</p>
+                <p class="footer__meta" data-i18n="footer.meta">Claves digitales para gamers exigentes. Hecho en Argentina.</p>
+            </div>
+            <div class="footer__links">
+                <a href="#hero" data-i18n="nav.inicio">Inicio</a>
+                <a href="#catalogo" data-i18n="nav.catalogo">Catálogo</a>
+                <a href="#beneficios" data-i18n="nav.beneficios">Beneficios</a>
+                <a href="#contacto" data-i18n="nav.contacto">Contacto</a>
+            </div>
+            <div class="footer__legal" data-i18n="footer.legal">© 2024 MyKey. Todos los derechos reservados.</div>
+        </footer>
+    </div>
+
+    <div class="drawer" id="drawer">
+        <div class="drawer__overlay" id="drawerOverlay"></div>
+        <aside class="drawer__panel">
+            <header class="drawer__header">
+                <div>
+                    <p class="eyebrow" data-i18n="carrito.titulo">Carrito</p>
+                    <h3 data-i18n="carrito.resumen">Resumen de compra</h3>
+                </div>
+                <button class="icon-button" id="cerrarDrawer" aria-label="Cerrar carrito" data-i18n-aria-label="carrito.cerrar">✕</button>
+            </header>
+            <div class="drawer__body">
+                <ul class="cart" id="listaCarrito"></ul>
+                <div class="cart--empty" id="carritoVacio" hidden>
+                    <p data-i18n="carrito.vacio">Aún no agregaste juegos. Explora el catálogo para comenzar.</p>
+                    <button class="btn btn--ghost" id="volverCatalogo" data-i18n="carrito.volver">Ir al catálogo</button>
+                </div>
+            </div>
+            <footer class="drawer__footer">
+                <div class="total">
+                    <span data-i18n="carrito.total">Total</span>
+                    <strong id="totalCarrito">$0</strong>
+                </div>
+                <button class="btn btn--primary btn--full" id="finalizarCompra" data-i18n="carrito.finalizar">Finalizar compra</button>
+            </footer>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
