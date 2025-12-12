@@ -6,7 +6,7 @@ Landing y carrito profesional para vender claves digitales con entrega inmediata
 - Node.js 18+ (solo para gestionar dependencias si quieres usar SweetAlert2 desde `node_modules`; el sitio funciona como estático)
 
 ## Uso
-1. Instala dependencias opcionalmente:
+1. Instala dependencias opcionalmente::
    ```bash
    npm install
    ```
